@@ -1,4 +1,5 @@
 # Adv DB Winter 2024 - 1
+import pandas as pd
 
 import random
 
@@ -19,12 +20,19 @@ def recovery_script(log:list):  #<--- Your CODE
     print("Recovery in process ...\n")
     pass
 
-def transaction_processing(): #<-- Your CODE
+def transaction_processing(index, database): #<-- Your CODE
     '''
     1. Process transaction in the transaction queue.
     2. Updates DB_Log accordingly
     3. This function does NOT commit the updates, just execute them
     '''
+    transitionInPlay = transactions[index]
+    print("transaction in play")
+    print(transitionInPlay)
+    print("transaction id")
+    print(transitionInPlay[0])
+    #transition = df[(df[''] ==  '')]
+    print(database)
     pass
     
 
@@ -66,13 +74,16 @@ def is_there_a_failure()->bool:
 def main():
     number_of_transactions = len(transactions)
     must_recover = False
-    data_base = read_file('Employees_DB_ADV.csv')
+    data_base = pd.read_csv('CodeAndData\Employees_DB_ADV.csv')
+    #print(data_base)
+    print(transactions)
     failure = is_there_a_failure()
     failing_transaction_index = None
-    while not failure:
+    #while not failure:
         # Process transaction
-        for index in range(number_of_transactions):
-            print(f"\nProcessing transaction No. {index+1}.")    #<--- Your CODE (Call function transaction_processing)
+    for index in range(number_of_transactions):
+            print(f"\nProcessing transaction No. {index+1}.")  
+            transaction_processing(index, data_base)  #<--- Your CODE (Call function transaction_processing)
             print("UPDATES have not been committed yet...\n")
             failure = is_there_a_failure()
             if failure:
