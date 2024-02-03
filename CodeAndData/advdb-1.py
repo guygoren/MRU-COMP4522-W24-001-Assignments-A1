@@ -31,8 +31,17 @@ def transaction_processing(index, database): #<-- Your CODE
     print(transitionInPlay)
     print("transaction id")
     print(transitionInPlay[0])
-    #transition = df[(df[''] ==  '')]
+    transactionid = int(transitionInPlay[0])
+    transition = database['Unique_ID'] == transactionid
+    row_index = database.index[transition].tolist()
+    print("row index")
+    print(row_index)
+    print("transition")
+    print(transition)
+    if row_index:
+        database.loc[row_index, transitionInPlay[1]] = transitionInPlay[2]
     print(database)
+
     pass
     
 
