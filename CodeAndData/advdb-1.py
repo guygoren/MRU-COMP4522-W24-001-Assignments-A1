@@ -26,22 +26,20 @@ def transaction_processing(index, database): #<-- Your CODE
     2. Updates DB_Log accordingly
     3. This function does NOT commit the updates, just execute them
     '''
+    # getting the transition currently being used via index
     transitionInPlay = transactions[index]
-    print("transaction in play")
-    print(transitionInPlay)
-    print("transaction id")
-    print(transitionInPlay[0])
+
+    # changes the tranition id to an int and finds the corrosponding row
     transactionid = int(transitionInPlay[0])
     transition = database['Unique_ID'] == transactionid
-    row_index = database.index[transition].tolist()
-    print("row index")
-    print(row_index)
-    print("transition")
-    print(transition)
-    if row_index:
-        database.loc[row_index, transitionInPlay[1]] = transitionInPlay[2]
-    print(database)
+    row_index = database.index[transition]
 
+    #updates the row and adds message to DB_Log (not sure if we are doing dblog right)
+    DBMessage = database.loc[row_index, transitionInPlay[1]] + " " + transitionInPlay[2]
+    database.loc[row_index, transitionInPlay[1]] = transitionInPlay[2]
+
+    DB_Log.append(DBMessage)
+    print(DB_Log)
     pass
     
 
@@ -94,6 +92,8 @@ def main():
             print(f"\nProcessing transaction No. {index+1}.")  
             transaction_processing(index, data_base)  #<--- Your CODE (Call function transaction_processing)
             print("UPDATES have not been committed yet...\n")
+            print("database")
+            print(data_base)
             failure = is_there_a_failure()
             if failure:
                 must_recover = True
