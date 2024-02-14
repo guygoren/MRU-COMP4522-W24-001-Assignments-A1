@@ -2,7 +2,6 @@
 import pandas as pd
 import numbers
 import os.path
-
 import random
 
 data_base = []  # Global binding for the Database contents
@@ -15,7 +14,7 @@ transactions = [['1', 'Department', 'Music'], ['5', 'Civil_status', 'Divorced'],
 
 DB_Log = [] # <-- You WILL populate this as you go
 
-def recovery_script(log:list, failing_transaction_index, database):  #<--- Your CODE
+def recovery_script(log:list, failing_transaction_index, database): 
     '''
     Restore the database to stable and sound condition, by processing the DB log.
     '''
@@ -32,7 +31,7 @@ def recovery_script(log:list, failing_transaction_index, database):  #<--- Your 
     print(database)
     pass
 
-def transaction_processing(index, database): #<-- Your CODE
+def transaction_processing(index, database):
     '''
     1. Process transaction in the transaction queue.
     2. Updates DB_Log accordingly
@@ -59,7 +58,7 @@ def transaction_processing(index, database): #<-- Your CODE
     
 def create_csv(data_base):
     #Reading requirements, thought to create an alternative CSV generator
-    #Dunno if this is the right thing to do 
+    #Not sure if this is the right thing to do 
     exists = os.path.exists('CodeAndData\Employees_DB_ADV_2.csv')
     if not exists: 
         writer = data_base.to_csv('CodeAndData\Employees_DB_ADV_2.csv', index=False)
@@ -73,9 +72,9 @@ def read_file(file_name:str)->list:
     Read the contents of a CSV file line-by-line and return a list of lists
     '''
     data = []
-    #
+
     # one line at-a-time reading file
-    #
+    
     with open(file_name, 'r') as reader:
     # Read and print the entire file line by line
         line = reader.readline()
@@ -115,7 +114,7 @@ def main():
         # Process transaction
     for index in range(number_of_transactions):
             print(f"\nProcessing transaction No. {index+1}.")  
-            transaction_processing(index, data_base)  #<--- Your CODE (Call function transaction_processing)
+            transaction_processing(index, data_base)  #Call function transaction_processing
             print("UPDATES have not been committed yet...\n")
             print("database")
             print(data_base)
@@ -129,8 +128,8 @@ def main():
                 print(f'Transaction No. {index+1} has been commited! Changes are permanent.')
                 
     if must_recover:
-        #Call your recovery script
-        recovery_script(DB_Log, failing_transaction_index, data_base) ### Call the recovery function to restore DB to sound state
+        # Call your recovery script
+        recovery_script(DB_Log, failing_transaction_index, data_base) # Call the recovery function to restore DB to sound state
     else:
         # All transactiones ended up well
         print("All transaction ended up well.")
