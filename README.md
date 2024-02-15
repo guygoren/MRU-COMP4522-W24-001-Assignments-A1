@@ -6,3 +6,8 @@ You will find two folders in this repository:
 - Doc Folder: the document describing the assignment.
 
 Please select the one of interest to you -or both- as applicable.
+
+Completed by : Evan Gadsby
+Guy Goren
+Hoomer Amid
+Moonum Azmi
