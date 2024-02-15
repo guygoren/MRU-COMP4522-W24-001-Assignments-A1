@@ -132,13 +132,6 @@ def main():
     while (transactionindex > 0 and transactionindex < 3):
          transaction_processing(transactionindex, data_base, False, None, False)
          transactionindex = (transactionindex + 1)
-    # if (transactionindex == 1):
-    #     print("The following transactions were not executed")
-    #     transaction_processing(1, data_base, False, None, False)
-    #     transaction_processing(2, data_base, False, None, False)
-    # elif (transactionindex == 2):
-    #     print("The following transaction was not executed")
-    #     transaction_processing(2, data_base, False, None, False)
     for transaction in DB_Log:
         print(f"Transaction ID: {transaction['id']}, Attribute: {transaction['Prev']} -> {transaction['Change']}, Status: {transaction['Status']}")
     
