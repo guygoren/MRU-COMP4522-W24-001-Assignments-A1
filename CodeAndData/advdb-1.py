@@ -25,15 +25,6 @@ def recovery_script(log:list, failing_transaction_index, database):
     revertID = (failing_transaction_index - 1)
     transitionRevert = transactions[(revertID)]
     transactionID = (int((transitionRevert[0])) - 1)
-<<<<<<< Updated upstream
-    
-    #Reversion of transaction
-    database.loc[(transactionID), transitionRevert[1]] = log[(revertID)].loc[(0), 'Prev']
-    print(database)
-    pass
-
-def transaction_processing(index, database):
-=======
 
     
     #Reversion of transaction
@@ -43,7 +34,6 @@ def transaction_processing(index, database):
     pass
 
 def transaction_processing(index, database, failure, failing_transaction_index, isexecuted):  # Pass failure variable to the transaction_processing function
->>>>>>> Stashed changes
     '''
     1. Process transaction in the transaction queue.
     2. Updates DB_Log accordingly
@@ -51,32 +41,14 @@ def transaction_processing(index, database, failure, failing_transaction_index, 
     '''
     # save record before alteration of it
 
-<<<<<<< Updated upstream
-    # getting the transition currently being used via index
-    transitionInPlay = transactions[index]
-
-    # changes the tranition id to an int and finds the corrosponding row
-=======
         # getting the transition currently being used via index
     transitionInPlay = transactions[index]
 
     # changes the transition id to an int and finds the corresponding row
->>>>>>> Stashed changes
     transactionid = int(transitionInPlay[0])
     rowID = (transactionid - 1)
     transition = database['Unique_ID'] == transactionid
     row_index = database.index[transition]
-<<<<<<< Updated upstream
-
-    #updates the row and adds message to DB_Log (not sure if we are doing dblog right)
-
-    #DBMessage = database.loc[row_index, transitionInPlay[1]] + " " + transitionInPlay[2]
-    changelog = pd.DataFrame([[rowID, database.loc[rowID, transitionInPlay[1]], transitionInPlay[2]]], columns=['id', 'Prev', 'Change'])
-    database.loc[row_index, transitionInPlay[1]] = transitionInPlay[2]
-    DB_Log.append(changelog)
-    pass
-    
-=======
     #we use this to set non executed transactions to have the non executed status
     if (isexecuted) :
         # updates the row and adds message to DB_Log
@@ -95,7 +67,6 @@ def transaction_processing(index, database, failure, failing_transaction_index, 
     database.loc[row_index, transitionInPlay[1]] = transitionInPlay[2]
     DB_Log.append(changelog)
     
->>>>>>> Stashed changes
 def create_csv(data_base):
     #Reading requirements, thought to create an alternative CSV generator
     #Not sure if this is the right thing to do 
@@ -107,32 +78,6 @@ def create_csv(data_base):
     else: 
        print("If this prints alt DB (where transactions will affect) already exists")
 
-<<<<<<< Updated upstream
-def read_file(file_name:str)->list:
-    '''
-    Read the contents of a CSV file line-by-line and return a list of lists
-    '''
-    data = []
-
-    # one line at-a-time reading file
-    
-    with open(file_name, 'r') as reader:
-    # Read and print the entire file line by line
-        line = reader.readline()
-        while line != '':  # The EOF char is an empty string
-            line = line.strip().split(',')
-            data.append(line)
-             # get the next line
-            line = reader.readline()
-
-    size = len(data)
-    print('The data entries BEFORE updates are presented below:')
-    for item in data:
-        print(item)
-    print(f"\nThere are {size} records in the database, including one header.\n")
-    return data
-=======
->>>>>>> Stashed changes
 
 def is_there_a_failure()->bool:
     '''
@@ -145,41 +90,11 @@ def is_there_a_failure()->bool:
         result = False
     return result
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 def main():
     #get number of total transactions, which is always 3
     number_of_transactions = len(transactions)
     must_recover = False
     data_base = pd.read_csv('CodeAndData\Employees_DB_ADV.csv')
-<<<<<<< Updated upstream
-    #data_base = [list(row) for row in data_base.values]
-    #print(data_base)
-    failure = is_there_a_failure()
-    failing_transaction_index = None
-    #while not failure:
-        # Process transaction
-    for index in range(number_of_transactions):
-            print(f"\nProcessing transaction No. {index+1}.")  
-            transaction_processing(index, data_base)  #Call function transaction_processing
-            print("UPDATES have not been committed yet...\n")
-            print("database")
-            print(data_base)
-            failure = is_there_a_failure()
-            if failure:
-                must_recover = True
-                failing_transaction_index = index + 1
-                print(f'There was a failure whilst processing transaction No. {failing_transaction_index}.')
-                break
-            else:
-                print(f'Transaction No. {index+1} has been commited! Changes are permanent.')
-                
-    if must_recover:
-        # Call your recovery script
-        recovery_script(DB_Log, failing_transaction_index, data_base) # Call the recovery function to restore DB to sound state
-=======
     failing_transaction_index = 0
 
     
@@ -205,21 +120,11 @@ def main():
     if must_recover:
         recovery_script(DB_Log, failing_transaction_index, data_base)
         
->>>>>>> Stashed changes
     else:
         # All transactiones ended up well
         print("All transaction ended up well.")
         print("Updates to the database were committed!\n")
 
-<<<<<<< Updated upstream
-    print('\n The data entries AFTER updates -and RECOVERY, if necessary- are presented below: \n')
-    for index in range (len(DB_Log)): 
-        print(f"{data_base.loc[DB_Log[(index - 1)].loc[0, 'id']]} \n")
-    
-    #for item in data_base:
-        #print(f'{item}')
-    
-=======
     print('\n The data entries AFTER updates and potential recovery are presented below: \n')
     create_csv(data_base)
     #If transactions do not get completed, we call the processing function and set the last parameter as false to indicate its non exectured and add to DB_Log
@@ -238,6 +143,5 @@ def main():
         print(f"Transaction ID: {transaction['id']}, Attribute: {transaction['Prev']} -> {transaction['Change']}, Status: {transaction['Status']}")
     
 
->>>>>>> Stashed changes
 main()
 
