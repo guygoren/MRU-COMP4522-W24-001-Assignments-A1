@@ -63,9 +63,53 @@ def is_there_a_failure()->bool:
         result = False
     return result
 
+# def main():
+#     number_of_transactions = len(transactions)
+#     must_recover = False
+#     data_base = pd.read_csv('CodeAndData\Employees_DB_ADV.csv')
+#     #data_base = [list(row) for row in data_base.values]
+#     #print(data_base)
+#     failure = is_there_a_failure()
+#     failing_transaction_index = None
+#     #while not failure:
+#         # Process transaction
+#     for index in range(number_of_transactions):
+#             print(f"\nProcessing transaction No. {index+1}.")  
+#             transaction_processing(index, data_base)  #Call function transaction_processing
+#             print("UPDATES have not been committed yet...\n")
+#             print("database")
+#             print(data_base)
+#             failure = is_there_a_failure()
+#             if failure:
+#                 must_recover = True
+#                 failing_transaction_index = index + 1
+#                 print(f'There was a failure whilst processing transaction No. {failing_transaction_index}.')
+#                 break
+#             else:
+#                 print(f'Transaction No. {index+1} has been commited! Changes are permanent.')
+                
+                
+#     if must_recover:
+#         # Call your recovery script
+#         recovery_script(DB_Log, failing_transaction_index, data_base) # Call the recovery function to restore DB to sound state
+#     else:
+#         # All transactiones ended up well
+#         print("All transaction ended up well.")
+#         print("Updates to the database were committed!\n")
+#     create_csv(data_base)
+#     print('\n The data entries AFTER updates -and RECOVERY, if necessary- are presented below: \n')
+#     for index in range (len(DB_Log)): 
+#         print(f"{data_base.loc[DB_Log[(index - 1)].loc[0, 'id']]} \n")
+    
+#     #for item in data_base:
+#         #print(f'{item}')
+    
+# main()
+
 def main():
     number_of_transactions = len(transactions)
     must_recover = False
+<<<<<<< Updated upstream
     data_base = read_file('Employees_DB_ADV.csv')
     failure = is_there_a_failure()
     failing_transaction_index = None
@@ -86,15 +130,44 @@ def main():
     if must_recover:
         #Call your recovery script
         recovery_script(DB_Log) ### Call the recovery function to restore DB to sound state
+=======
+    data_base = pd.read_csv('CodeAndData\Employees_DB_ADV.csv')
+    failure = is_there_a_failure()
+    failing_transaction_index = None
+
+    for index in range(number_of_transactions):
+        print(f"\nProcessing transaction No. {index+1}.")
+        transaction_processing(index, data_base)
+        print("UPDATES have not been committed yet...\n")
+        print("database")
+        print(data_base)
+        failure = is_there_a_failure()
+        if failure:
+            must_recover = True
+            failing_transaction_index = index + 1
+            print(f'There was a failure whilst processing transaction No. {failing_transaction_index}.')
+            break
+        else:
+            print(f'Transaction No. {index+1} has been commited! Changes are permanent.')
+
+    if must_recover:
+        recovery_script(DB_Log, failing_transaction_index, data_base)
+>>>>>>> Stashed changes
     else:
-        # All transactiones ended up well
-        print("All transaction ended up well.")
+        print("All transactions ended up well.")
         print("Updates to the database were committed!\n")
 
+<<<<<<< Updated upstream
     print('The data entries AFTER updates -and RECOVERY, if necessary- are presented below:')
     for item in data_base:
         print(item)
     
+=======
+    print('\n Logging & Rollback Data Structure: \n')
+    for transaction in DB_Log:
+        print(f"Transaction ID: {transaction['id']}, Attribute: {transaction['Prev']} -> {transaction['Change']}, Status: {transaction['Status']}")
+
+>>>>>>> Stashed changes
 main()
 
 
